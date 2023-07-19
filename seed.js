@@ -7,12 +7,18 @@ const { db, Plant } = require("./database");
 async function seed() {
   try {
     console.log(cyan("📡 Connecting to the database..."));
+    await db.sync({ force: true });
     // Connect to the database
 
     console.log(blue("🌱 Seeding the database..."));
 
     // Seed the database
+    const cauliflower = await Plant.create({ name: "Cauliflower" });
+    console.log("cauliflower instance >>>>", cauliflower);
+    console.log("cauliflower name >>>>", cauliflower.name);
 
+    const broccoli = await cauliflower.update({ name: "Pale Broccoli" });
+    console.log("updated cauliflower name >>>>", cauliflower.name);
     // Close the database connection
     await db.close();
 
